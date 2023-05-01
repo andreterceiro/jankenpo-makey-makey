@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <title>Jankenpo</title>
+        <meta charset="utf-8">
+        <style>
+            .option {
+                border: 1px solid #000;
+                margin-left: 30px;
+                margin-top: 30px;
+            }
+        </style>
+    </head>
+    <script
+			  src="https://code.jquery.com/jquery-1.12.4.min.js"
+			  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+			  crossorigin="anonymous"></script>
+    <body>
+        <div>
+            Please click in your option:
+            <hr />
+            <span>
+                <img src="assets/paper.png" class="option" onclick="process('paper')" />
+            </span>
+            <span>
+                <img src="assets/rock.png" class="option" onclick="process('rock')" />
+            </span>
+            <span>
+                <img src="assets/scissors.png" class="option" onclick="process('scissors')" />
+            </span>
+        <script>
+            /**
+             * Alert who is the winner
+             * user GET parameter choice x computer random choice 
+             * 
+             * @param {string} userChoice The choice of the user
+             *
+             * @return {null}
+             */
+            function process(userChoice) {
+                if (userChoice != "paper" && userChoice != "rock" && userChoice != "scissors") {
+                    alert("Please select your choice.");
+                }
+                const computerChoice = getComputerChoice();
+
+                if ((userChoice == "paper" && computerChoice == "rock") || (userChoice == "rock" && computerChoice == "scissors") || (userChoice == "scissors" && computerChoice == "paper")) {  
+                    console.log("User win");
+                } else if (userChoice == computerChoice) {
+                    console.log("Draw");
+                } else {
+                    console.log("Computer win");
+                }
+                console.log("Computer selected " + computerChoice);
+                console.log("User selected " + userChoice);
+                console.log("------------------------------------");
+            }
+
+            /**
+            * Returns the computer choice
+            * 
+            * @return {string} A string representing the choice, like 'rock'
+            */
+            function getComputerChoice() {
+                const choices = ["paper", "rock", "scissors"];
+                const randomComputerIndex = Math.floor(Math.random() * 3);
+                return choices[randomComputerIndex];
+            }
+
+            $(document).ready(
+                function() {
+                    $("body").keydown(
+                        function(event) {
+                            if (event.which == "37") {
+                                process("paper");
+                                return true;
+                            } else if  (event.which == "38") {
+                                process("rock");
+                                return true;
+                            } else if (event.which == "39") {
+                                process("scissors");
+                                return true;
+                            }  
+                        }
+                    )
+                }
+            )
+        </script>
+    </body>
+</html> 
